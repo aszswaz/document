@@ -1,0 +1,20 @@
+[Unit]
+Description=MySQL Server
+After=network.target
+After=syslog.target
+[Install]
+WantedBy=multi-user.target
+[Service]
+User=mysql
+Group=mysql
+Type=forking
+TimeoutSec=0
+PermissionsStartOnly=true
+LimitNOFILE = 5000
+Restart=on-failure
+RestartPreventExitStatus=1
+PrivateTmp=false
+# Start main service
+ExecStart=/usr/local/mysql/support-files/mysql.server start
+ExecStop=/usr/local/mysql/support-files/mysql.server stop
+ExecReload=/usr/local/mysql/support-files/mysql.server reload

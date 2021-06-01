@@ -1,0 +1,5 @@
+# 配置fcitx5的运行环境
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS='@im=fcitx'
+export SDL_IM_MODULE=fcitx

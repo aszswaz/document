@@ -1,0 +1,36 @@
+
+" 开启文件类型配对
+:filetype plugin on
+" 开启语法高亮
+:syntax on
+" 以四个空格替换\t
+:set ts=4
+:set expandtab
+:%retab!
+" 启用鼠标
+:set mouse=a
+" 显示行号
+:set number
+" 开启光标所在位置的行和列高亮
+:set cursorcolumn
+:set cursorline
+" 设置光标所在位置的行与列突出显示样式
+:highlight CursorLine   cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE
+:highlight CursorColumn cterm=NONE ctermbg=black ctermfg=NONE guibg=NONE guifg=NONE
+
+" 关闭备份
+:set nobackup
+
+" 编码设置
+:set enc=utf-8
+:set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+
+"语言设置
+:set langmenu=zh_CN.UTF-8
+:set helplang=cn
+
+" 开启正则
+:set magic
+
+" 配置括号的高亮，ctermbg为背景色，ctermfg为文字颜色
+:hi MatchParen ctermbg=NONE ctermfg=green

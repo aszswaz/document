@@ -1,0 +1,11 @@
+[Unit]
+Description=redis server
+After=network.target remote-fs.target nss-lookup.target
+[Service]
+Type=forking
+ExecStart=/opt/databases/redis/src/redis-server /opt/databases/redis/redis.conf
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
