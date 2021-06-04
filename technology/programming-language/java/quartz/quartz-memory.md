@@ -84,5 +84,6 @@ org.quartz.plugin.shutdownhook.cleanShutdown=true
 org.quartz.plugin.triggHistory.class=org.quartz.plugins.history.LoggingTriggerHistoryPlugin
 org.quartz.plugin.triggHistory.triggerFiredMessage=Trigger \{1\}.\{0\} fired job \{6\}.\{5\} at: \{4, date, yyyy-MM-dd HH:mm:ss.SSS\}.
 org.quartz.plugin.triggHistory.triggerCompleteMessage=Trigger \{1\}.\{0\} completed firing job \{6\}.\{5\} at \{4, date, yyyy-MM-dd HH:mm:ss.SSS\}.
+
 ```
 
