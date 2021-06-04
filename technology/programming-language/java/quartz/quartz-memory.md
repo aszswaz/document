@@ -59,6 +59,9 @@ public class QuartzJob implements Job {
 }
 ```
 
+quartz.properties配置
+
+
 ```properties
 # suppress inspection "UnusedProperty" for whole file
 # quartz作业框架配置
