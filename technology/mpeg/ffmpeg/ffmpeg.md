@@ -10,6 +10,10 @@ $ make
 
 <span style="color: red">`--enable-debug=3`就是在执行gcc编译时，开启`-g3 -gdwarf-2`添加最多的调试信息（包括#define宏定义的值）</span>
 
+<span style="color: red">`--disable-optimizations` 关闭编译时的代码优化，防止调试时，出现和源码对不上的情况</span>
+
+<span style="color: red">`--disable-asm`关闭汇编</span>
+
 初始化libavdevice并注册所有输入和输出设备。
 
 ```c
