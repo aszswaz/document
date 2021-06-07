@@ -14,9 +14,15 @@ $ make
 
 <span style="color: red">`--disable-asm`关闭汇编</span>
 
-初始化libavdevice并注册所有输入和输出设备。
+## 1. ffmpeg_parse_options
+
+解析所有选项并打开输入/输出文件
+
+### 1. open_input_file
+
+打开数据源文件
 
 ```c
-avdevice_register_all();
+const AVInputFormat *file_iformat = av_find_input_format("s16be");
 ```
 

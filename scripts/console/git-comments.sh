@@ -10,7 +10,8 @@ git_push_all(){
         do
             printf "正在提交: ${depository}\n"
             # 推送全部分支
-            git push ${depository}
+            git push --all ${depository}
+            git push --tags ${depository}
         done
         echo "完毕!"
     else
