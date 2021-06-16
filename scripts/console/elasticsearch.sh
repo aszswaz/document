@@ -56,43 +56,60 @@ get_elasticsearch_indies() {
 # 按照查询条件，对索引进行聚合查询，默认查询全部的索引
 elasticsearch_count() {
   count_number=0
+
+  # 没有输入参数
+  if [ "$#" -eq "0" ]; then
+    get_elasticsearch_indies |
+      while read -r line; do
+        request=$(elasticsearch count "$line" | jq .count)
+        if [ "$request" = "" ]; then
+          return 1
+        fi
+        count_number=$(expr "${count_number}" + "${request}")
+        echo "index: ${line}, count: ${request}"
+      done
+    return 0
+  fi
+
+  array=()
+  for element in $@; do
+    array+=("${element}")
+  done
+
+  # 参数字典
+  declare -A dict
+  i=1
+  while [ "${i}" -lt "${#array[@]}" ]; do
+    parameter="${array[i]}"
+    if [ "${parameter:0:1}" = "-" ]; then
+      i=$(expr "${i}" + 1)
+      dict["${parameter}"]="${array[i]}"
+    fi
+    i=$(expr "${i}" + 1)
+  done
+
   get_elasticsearch_indies |
     while read -r line; do
-      if [ "$#" = "0" ]; then
-        request=$(elasticsearch count "$line" | jq .count)
-
-        if [ "$request" = "" ]; then
-          return 1
+      if [ "${dict["-p"]}" = "" ]; then
+        if [ "${dict["-q"]}" = "" ]; then
+          request=$(elasticsearch count "$line" | jq .count)
+        else
+          request=$(elasticsearch count "$line" "${dict["-q"]}" | jq .count)
         fi
-
-        count_number=$(expr "${count_number}" + "${request}")
         echo "index: ${line}, count: ${request}"
-        continue
-      fi
-
-      if [ "$#" -eq "1" ] && [[ "$line" =~ "$1" ]]; then
-        request=$(elasticsearch count "$line" | jq .count)
-
-        if [ "$request" = "" ]; then
-          return 1
+        count_number=$(expr "${count_number}" + "${request}")
+      else
+        if [[ "$line" =~ "${dict["-p"]}" ]]; then
+          if [ "${dict["-q"]}" = "" ]; then
+            request=$(elasticsearch count "$line" | jq .count)
+          else
+            request=$(elasticsearch count "$line" "${dict["-q"]}" | jq .count)
+          fi
+          echo "index: ${line}, count: ${request}"
+          count_number=$(expr "${count_number}" + "${request}")
         fi
-
-        count_number=$(expr "${count_number}" + "${request}")
-        echo "index: ${line}, count: ${request}"
-        continue
-      fi
-
-      if [ "$#" -eq "2" ] && [[ "$line" =~ "$1" ]]; then
-        request=$(elasticsearch count "$line" "$2" | jq .count)
-
-        if [ "$request" = "" ]; then
-          return 1
-        fi
-
-        count_number=$(expr "${count_number}" + "${request}")
-        echo "index: ${line}, count: ${request}"
-        continue
       fi
     done
+
   echo "total count: ${count_number}"
 }
