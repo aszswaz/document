@@ -1,5 +1,14 @@
 # shell 的基本语法
 
+## shell语法检查
+
+可以使用shellcheck检查脚本是否符合shell规范
+
+```bash
+$ sudo pacman -S shellcheck
+$ shellcheck demo.sh
+```
+
 ## 创建一个脚本文件`shell.sh`
 
 ```bash
