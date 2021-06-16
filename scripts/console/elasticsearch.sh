@@ -68,6 +68,7 @@ elasticsearch_count() {
         count_number=$(expr "${count_number}" + "${request}")
         echo "index: ${line}, count: ${request}"
       done
+      echo "total count: ${count_number}"
     return 0
   fi
 
