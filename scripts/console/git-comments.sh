@@ -9,8 +9,7 @@ git_push_all(){
         for depository in $(git remote)
         do
             printf "正在提交: ${depository}\n"
-            # 推送全部分支
-            git push --all ${depository}
+            git push ${depository}
             git push --tags ${depository}
         done
         echo "完毕!"
