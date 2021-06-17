@@ -4,6 +4,7 @@ base_comment="curl -X GET -s http://${ELASTICSEARCH_SERVER}:${ELASTICSEARCH_PORT
 
 # 连接elasticsearch服务器，并且根据指定的参数，执行相应的查询操作
 elasticsearch() {
+  editor="vi"
   default_query_file="query.json"
   elasticsearch_cache_dir="${HOME}/.cache/elasticsearch"
   if [ ! -x "${elasticsearch_cache_dir}" ]; then
@@ -36,7 +37,7 @@ elasticsearch() {
       i=$(expr "${i}" + 1)
 
       if [ "$1" = "search" ] && [ "${str}" = "-q" ] && [ "${params[i]}" = "" ]; then
-        vim "${elasticsearch_cache_dir}/cache_query.json"
+        ${editor} "${elasticsearch_cache_dir}/cache_query.json"
         params_dict["${str}"]="${elasticsearch_cache_dir}/cache_query.json"
         continue
       fi
@@ -51,20 +52,20 @@ elasticsearch() {
       if [ "${params_dict["-q"]}" != "" ]; then
         curl_commend="${base_comment/path/_search} -H 'Content-Type: application/json' -d @${params_dict["-q"]}"
         eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
-        vim "${elasticsearch_cache_file}"
+        ${editor} "${elasticsearch_cache_file}"
         rm -rf "${elasticsearch_cache_dir}"
         return 0
       fi
       if [ -r "${default_query_file}" ]; then
         curl_commend="${base_comment/path/_search} -H 'Content-Type: application/json' -d @${default_query_file}"
         eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
-        vim "${elasticsearch_cache_file}"
+        ${editor} "${elasticsearch_cache_file}"
         rm -rf "${elasticsearch_cache_dir}"
         return 0
       fi
       curl_commend="${base_comment/path/_search}"
       eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
-      vim "${elasticsearch_cache_file}"
+      ${editor} "${elasticsearch_cache_file}"
       rm -rf "${elasticsearch_cache_dir}"
       return 0
     fi
@@ -72,19 +73,19 @@ elasticsearch() {
       if [ -r "${default_query_file}" ]; then
         curl_commend="${base_comment/path/${params_dict["-i"]}/_search} -H 'Content-Type: application/json' -d @${default_query_file}"
         eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
-        vim "${elasticsearch_cache_file}"
+        ${editor} "${elasticsearch_cache_file}"
         rm -rf "${elasticsearch_cache_dir}"
         return 0
       fi
       curl_commend="${base_comment/path/${params_dict["-i"]}/_search}"
       eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
-      vim "${elasticsearch_cache_file}"
+      ${editor} "${elasticsearch_cache_file}"
       rm -rf "${elasticsearch_cache_dir}"
       return 0
     fi
     curl_commend="${base_comment/path/${params_dict["-i"]}/_search} -H 'Content-Type: application/json' -d @${params_dict["-q"]}"
     eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
-    vim "${elasticsearch_cache_file}"
+    ${editor} "${elasticsearch_cache_file}"
     rm -rf "${elasticsearch_cache_dir}"
     return 0
   fi
