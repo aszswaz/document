@@ -4,7 +4,7 @@ base_comment="curl -X GET -s http://${ELASTICSEARCH_SERVER}:${ELASTICSEARCH_PORT
 
 # 连接elasticsearch服务器，并且根据指定的参数，执行相应的查询操作
 elasticsearch() {
-  editor="vi"
+  editor="vim"
   default_query_file="query.json"
   elasticsearch_cache_dir="${HOME}/.cache/elasticsearch"
   if [ ! -x "${elasticsearch_cache_dir}" ]; then
