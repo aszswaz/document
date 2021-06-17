@@ -4,6 +4,13 @@ base_comment="curl -X GET -s http://${ELASTICSEARCH_SERVER}:${ELASTICSEARCH_PORT
 
 # 连接elasticsearch服务器，并且根据指定的参数，执行相应的查询操作
 elasticsearch() {
+  default_query_file="query.json"
+  elasticsearch_cache_dir="${HOME}/.cache/elasticsearch"
+  if [ ! -x "${elasticsearch_cache_dir}" ]; then
+    mkdir "${elasticsearch_cache_dir}"
+  fi
+  elasticsearch_cache_file="${elasticsearch_cache_dir}/elasticsearch_cache.json"
+
   # 输出帮助信息
   if [ "$#" -eq "0" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     echo "-h --help : 输出帮助信息"
@@ -16,29 +23,28 @@ elasticsearch() {
     return 0
   fi
   # 解析参数
-  params=()
+  declare -a params # 声明数组
   for param in $@; do
     params+=("$param")
   done
   # 参数映射为字典
   declare -A params_dict
-  i=0
-  while [ "${i}" -lt "${#params[@]}" ]; do
+  i=1
+  while [ "${i}" -le "${#params[@]}" ]; do
     str="${params[i]}"
     if [ "${str:0:1}" = "-" ]; then
       i=$(expr "${i}" + 1)
+
+      if [ "$1" = "search" ] && [ "${str}" = "-q" ] && [ "${params[i]}" = "" ]; then
+        vim "${elasticsearch_cache_dir}/cache_query.json"
+        params_dict["${str}"]="${elasticsearch_cache_dir}/cache_query.json"
+        continue
+      fi
+
       params_dict["${str}"]="${params[i]}"
     fi
     i=$(expr "${i}" + 1)
   done
-
-  elasticsearch_cache_dir="${HOME}/.cache/elasticsearch"
-  if [ ! -x "${elasticsearch_cache_dir}" ]; then
-    mkdir "${elasticsearch_cache_dir}"
-  fi
-  elasticsearch_cache_file="${elasticsearch_cache_dir}/elasticsearch_cache.json"
-
-  default_query_file="query.json"
 
   if [ "$1" = "search" ]; then
     if [ "${params_dict["-i"]}" = "" ]; then
