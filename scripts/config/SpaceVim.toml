@@ -40,3 +40,45 @@ auto_completion_tab_key_behavior = "cycle"
 name = 'shell'
 default_position = 'top'
 default_height = 30
+
+# 启用java语言
+[[layers]]
+  name = "lang#java"
+
+# 启用语法服务
+[[layers]]
+  name = "lsp"
+  filetypes = [
+    "java"
+  ]
+  [layers.override_cmd]
+    java = [
+    "java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=NONE",
+    "-noverify",
+    "-Xmx1G",
+    "-jar",
+    "/home/aszswaz/publins/SpaceVim/java-langue.jar",
+    "-configuration",
+    "/home/aszswaz/publins/SpaceVim/config_linux",
+    "-data",
+    "/home/aszswaz/publins/SpaceVim/javalsp"
+    ]
+
+# 启用python语法辅助
+[[layers]]
+  name = 'lang#python'
+  python_interpreter = '/usr/bin/python3'
+
+# c/c++语法支持
+[[layers]]
+  name = 'lang#c'
+  enable_clang_syntax_highlight = true
+
+# 启用模糊查找器
+[[layers]]
+  name = "denite"
