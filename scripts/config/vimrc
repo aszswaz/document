@@ -38,5 +38,5 @@
 " 设置状态栏显示文件名和文件路径
 :set laststatus=2
 
-# 关闭自动换行
+" 关闭自动换行
 :set nowrap
