@@ -40,3 +40,6 @@
 
 " 关闭自动换行
 :set nowrap
+
+" 文件在外部被修改，自动更新
+:set autoread
