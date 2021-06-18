@@ -89,4 +89,22 @@ elasticsearch() {
     rm -rf "${elasticsearch_cache_dir}"
     return 0
   fi
+
+  if [ "$1" = "count" ]; then
+    if [ "${params_dict["-i"]}" != "" ]; then
+      if [ "${params_dict["-q"]}" != "" ]; then
+        curl_commend="${base_comment/path/${params_dict["-i"]}/_count} -H 'Content-Type: application/json' -d @${params_dict["-q"]}"
+        eval "${curl_commend}" | jq >> "${elasticsearch_cache_file}"
+        ${editor} "${elasticsearch_cache_file}"
+        rm -rf "${elasticsearch_cache_dir}"
+        return 0;
+      else
+        curl_commend="${base_comment/path/${params_dict["-i"]}/_count} -H 'Content-Type: application/json' -d @${default_query_file}"
+        eval "${curl_commend}" | jq >> "${elasticsearch_cache_file}"
+        ${editor} "${elasticsearch_cache_file}"
+        rm -rf "${elasticsearch_cache_dir}"
+        return 0;
+      fi
+    fi
+  fi
 }
