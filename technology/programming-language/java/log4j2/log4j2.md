@@ -41,7 +41,7 @@
         <Console name="console" target="SYSTEM_OUT">
             <!--输出日志的格式，使用SpringBoot配色（仅能在SpringBoot项目中使用） -->
             <PatternLayout
-                    pattern="%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %-40M %-5L: %m%n%xwEx"/>
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%5p} --- [%15.15t] %-40.40c %-40M %-5L: %m%n"/>
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
         </Console>
         <!--滚动随机访问文件-->
