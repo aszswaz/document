@@ -52,3 +52,22 @@ Yes, there are animals in the park.
     公园里面有动物吗？
 *   There are three parks in this city.
     在这个城市里有三个公园。
+
+## 附近有些什么？
+
+**用near here/there 表达附近有什么**
+
+```txt
+Is there ... near here?
+Yes, there is a + 单数名词 + near here.
+No.there isn't a + 单数名词 + near here.
+```
+
+用 close to there 表达那里附近有什么？
+
+```txt
+Is there ... near there?
+Yes, there is ... close to there.
+No, there isn't ... close to there.
+```
+

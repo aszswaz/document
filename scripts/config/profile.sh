@@ -3,7 +3,9 @@
 # 基本环境配置
 export MAVEN=/opt/aszswaz/maven
 export JAVA_HOME=/opt/aszswaz/jdk
-export PATH=${PATH}:${MAVEN}/bin:${JAVA_HOME}/bin
+export CMAKE=/opt/aszswaz/cmake
+export IDEA=/opt/aszswaz/idea
+export PATH=${PATH}:${MAVEN}/bin:${JAVA_HOME}/bin:${CMAKE}/bin:${IDEA}/bin
 
 export PROJECT=/home/aszswaz/Project
 export HTTP_PROXY='http://proxy.v2ray:10809'
@@ -13,9 +15,6 @@ export https_proxy=${http_proxy}
 export NO_PROXY='localhost,192.168.0.0/24,127.0.0.1,::1'
 # 设置控制台语言
 export LANG=zh_CN.UTF-8
-
-export CMAKE=/opt/aszswaz/cmake/
-export PATH=.:${PATH}:${CMAKE}/bin
 
 services=(docker docker.socket);
 
