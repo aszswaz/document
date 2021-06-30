@@ -63,11 +63,40 @@ Yes, there is a + 单数名词 + near here.
 No.there isn't a + 单数名词 + near here.
 ```
 
-用 close to there 表达那里附近有什么？
+**用 close to there 表达那里附近有什么？**
 
 ```txt
 Is there ... near there?
 Yes, there is ... close to there.
 No, there isn't ... close to there.
+```
+
+**Is there ... near here?**
+
+用于询问这里（较近的地方）附近有什么东西。
+
+**Is there ... near there?**
+
+用于询问较远的地方附近是否有什么东西。
+
+例：
+
+Is there a mall near there?
+
+那边附近有没有商场？
+
+**near、close to 都表示“在...附近”，回答别人那附近是否有什么东西时，表示肯定可以说“Yes, there is ... close to here/there.”，表示否定则可以说“No, there isn't ... close to there.”**
+
+例：
+
+```txt
+Yes, there is a hospital close to there.
+是的，那边附近有一家医院。
+No, there isn't a supermarket close to there.
+不， 那边附近没有超市。
+Yes, there is a hospital close to here.
+是的，这里附近有一家超市。
+No, there is a supermarket close to here.
+不，这里附近没有超市。
 ```
 
