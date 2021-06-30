@@ -100,3 +100,16 @@ No, there is a supermarket close to here.
 不，这里附近没有超市。
 ```
 
+## 介词 in/on/at 表示地点
+
+```txt
+She is in a supermarket.
+My office is in downtown.
+I am a waitress at a hotel.
+```
+
+当讲英语的人提到一个地方时，我们使用in表示最大或最一般的地方。你可以说，“VOA is located in Washington, D.C.” And “for the best food, try the restaurants in Chinatown.”
+
+对于更具体的地方，例如某些街道，我们使用介词on。你可能知道，美国总统奥巴马生活在宾夕法尼亚大道在华盛顿特区
+
+最后，我们到了最具体的地方。对于确切的地址或**交叉点，**我们使用介词at **。**如果我邀请你来美国之音拜访我们，我会说：“Come to my office at 330 Independence Avenue.” 确切地说，it’s at the corner of Independence and 3rd Street.”
