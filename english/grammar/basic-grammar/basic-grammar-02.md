@@ -55,6 +55,10 @@ Yes, there are animals in the park.
 *   There are three parks in this city.
     在这个城市里有三个公园。
 
+My school is on Main Street.
+
+<font color="green">想要介绍某个场所在某条街上的时候，就可以使用 on + 街名。比如这里的“Main”就是这条街的名字。Main 可以翻译为“主要的;最重要的”而 Main Street 是美国很常见的路名，就好比我们的人民路、解放路。美国其他常见的街名还包括 Park Street，First Street 等。</font>
+
 **on: 在...上面**
 
 例：
