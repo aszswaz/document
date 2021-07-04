@@ -46,12 +46,42 @@ Yes, there are animals in the park.
 
 <span style="color: green">介词 `in/on/at` 表示地点</span>
 
+**in：在...里面**
+
 *   Yes, There are animals in the park.
     是的，公园里有动物。
 *   Are there animals in the park?
     公园里面有动物吗？
 *   There are three parks in this city.
     在这个城市里有三个公园。
+
+**on: 在...上面**
+
+例：
+
+*   The train station is on Main Street.
+    火车站就在大街上。
+*   The school is on Park Street.
+    学校在公园街。
+*   The bank is on this Street.
+    银行在这条街上。
+
+**at: 在...地方; 在（某处）**
+
+例：
+
+*   I teach at this school.
+    我在这所学校教书。
+
+*   I work at a hotel.
+    我在一家宾馆工作。
+
+*   I am at the train station.
+    我在火车站。
+
+I teach at ABC school.
+
+<font color="green">在这里，说话人用 at + 学校名 来介绍自己在哪里工作。类似的表达还有 at + xx hotel（酒店）/hostpital（医院）/bank（银行）等，这里的 xx 可以是酒店等场所的名字，也可以是 a/the/this/that 等词。</font>
 
 ## 附近有些什么？
 
