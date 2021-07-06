@@ -147,3 +147,33 @@ I am a waitress at a hotel.
 对于更具体的地方，例如某些街道，我们使用介词on。你可能知道，美国总统奥巴马生活在宾夕法尼亚大道在华盛顿特区
 
 最后，我们到了最具体的地方。对于确切的地址或**交叉点，**我们使用介词at **。**如果我邀请你来美国之音拜访我们，我会说：“Come to my office at 330 Independence Avenue.” 确切地说，it’s at the corner of Independence and 3rd Street.”
+
+## That's great! 和 Great!
+
+当我们想表示某件事很不错的时候，不妨试试用 **great** 来表达。
+
+<font color="green">单词“great”的本意是“美妙的，好极的”。**That's great!** 或者 **Great!** 在口语中可以传达“棒”或者“赞”的意思</font>
+
+例如：
+
+>   别人告诉你她在火车站附近工作（I work near the train station.）你觉得这很赞，就可以说：That's great!
+>
+>   别人为你指路（The restaurant is on this street.），你可以说：Great Thanks!
+
+## Cool!
+
+除了“great”之外，Cool!也是一种常见的表达正面意义的词。<font color="green">这个词的意思是“妙极的，酷的”，常用来表示满意或赞同。</font>
+
+例如：
+
+>   有人介绍自己在一家大酒店工作（I work at a big hotel.）你觉得非常厉害，便可以说Cool!。
+>
+>   第一次见面的人正在介绍自己，说它来自美国（I'm from the United States.），你可以礼貌而不失热情地说：Cool!
+
+例1.
+
+A: I work at a hotel near the train station.
+
+B: Cool! What is the hotel like?
+
+这里 A 说自己在火车站附近的酒店工作。B 听完，先用“Cool!”给出了积极的反应，然后继续抛出问题，来了解更多关于酒店的细节。更浮夸、更热情的表达方式可以是“Wow，so cool!”
