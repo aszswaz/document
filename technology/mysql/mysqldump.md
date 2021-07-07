@@ -26,6 +26,6 @@
 ### 使用mysqldump从远程数据库导入到本地数据库
 
 ```shell
-mysqldump -h localhost -P 3308 -u root -p'password' databases -e --max_allowed_packet=4194304 --net_buffer_length=16384 --add-drop-table | mysql databases -u root -p'password'
+mysqldump -h localhost -P 3306 -u root -p'password' databases -e --max_allowed_packet=2097152 --net_buffer_length=16384 --add-drop-table | mysql databases -h localhost -P 3306 -u root -p'password'
 ```
 

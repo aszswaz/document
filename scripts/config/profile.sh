@@ -1,11 +1,15 @@
 #!/bin/sh
 
+# 为了避免PATH被污染，重置PATH
+export PATH=/home/aszswaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin
 # 基本环境配置
 export MAVEN=/opt/aszswaz/maven
 export JAVA_HOME=/opt/aszswaz/jdk
 export CMAKE=/opt/aszswaz/cmake
 export IDEA=/opt/aszswaz/idea
-export PATH=${PATH}:${MAVEN}/bin:${JAVA_HOME}/bin:${CMAKE}/bin:${IDEA}/bin
+export MYSQL=/opt/aszswaz/mysql
+export MYSQL_SHELL=/opt/aszswaz/mysql/shell
+export PATH=${PATH}:${MAVEN}/bin:${JAVA_HOME}/bin:${CMAKE}/bin:${IDEA}/bin:${MYSQL}/bin:${MYSQL_SHELL}/bin
 
 export PROJECT=/home/aszswaz/Project
 export HTTP_PROXY='http://proxy.v2ray:10809'
