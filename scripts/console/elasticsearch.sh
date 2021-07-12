@@ -1,9 +1,13 @@
 #!/bin/zsh
 
-base_comment="curl -X GET -s http://${ELASTICSEARCH_SERVER}:${ELASTICSEARCH_PORT}/path --USER ${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}"
-
 # 连接elasticsearch服务器，并且根据指定的参数，执行相应的查询操作
 elasticsearch() {
+  if [ "${ELASTICSEARCH_USERNAME}" = "" ]
+  then
+    base_comment="curl -X GET -s http://${ELASTICSEARCH_SERVER}:${ELASTICSEARCH_PORT}/path"
+  else
+    base_comment="curl -X GET -s http://${ELASTICSEARCH_SERVER}:${ELASTICSEARCH_PORT}/path --USER ${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}"
+  fi
   editor="vim"
   default_query_file="query.json"
   elasticsearch_cache_dir="${HOME}/.cache/elasticsearch"
@@ -17,6 +21,8 @@ elasticsearch() {
     echo "-h --help : 输出帮助信息"
     echo "count : 聚合查询"
     echo "search : 搜索数据"
+    echo "version: 查看服务器的版本信息"
+    return 0
   fi
   # 输出es服务器版本信息
   if [ "$1" = "version" ]; then
