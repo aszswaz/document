@@ -22,6 +22,7 @@ elasticsearch() {
     echo "count : 聚合查询"
     echo "search : 搜索数据"
     echo "version: 查看服务器的版本信息"
+    echo "indices: 查看服务器索引列表"
     return 0
   fi
   # 输出es服务器版本信息
@@ -53,6 +54,7 @@ elasticsearch() {
     i=$(expr "${i}" + 1)
   done
 
+  # 条件查询
   if [ "$1" = "search" ]; then
     if [ "${params_dict["-i"]}" = "" ]; then
       if [ "${params_dict["-q"]}" != "" ]; then
@@ -96,6 +98,7 @@ elasticsearch() {
     return 0
   fi
 
+  # 聚合查询
   if [ "$1" = "count" ]; then
     if [ "${params_dict["-i"]}" != "" ]; then
       if [ "${params_dict["-q"]}" != "" ]; then
@@ -112,5 +115,14 @@ elasticsearch() {
         return 0;
       fi
     fi
+  fi
+
+  # 查看服务器的所有索引
+  if [ "$1" = "indices" ]; then
+    elasticsearch_cache_file="${elasticsearch_cache_dir}/indices.txt"
+    curl_commend="${base_comment/path/_cat/indices}"
+    eval "${curl_commend}" >> "${elasticsearch_cache_file}"
+    ${editor} "${elasticsearch_cache_file}"
+    rm "${elasticsearch_cache_file}"
   fi
 }
