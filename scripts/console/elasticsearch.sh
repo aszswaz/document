@@ -56,9 +56,15 @@ elasticsearch() {
 
   # 条件查询
   if [ "$1" = "search" ]; then
+
     if [ "${params_dict["-i"]}" = "" ]; then
       if [ "${params_dict["-q"]}" != "" ]; then
-        curl_commend="${base_comment/path/_search} -H 'Content-Type: application/json' -d @${params_dict["-q"]}"
+        query_file="${params_dict["-q"]}"
+        if [ ! -r "${query_file}" ]; then
+          echo "文件：${query_file} 读取失败" 1>&2
+          return -1
+        fi
+        curl_commend="${base_comment/path/_search} -H 'Content-Type: application/json' -d @${query_file}"
         eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
         ${editor} "${elasticsearch_cache_file}"
         rm -rf "${elasticsearch_cache_dir}"
@@ -77,6 +83,7 @@ elasticsearch() {
       rm -rf "${elasticsearch_cache_dir}"
       return 0
     fi
+
     if [ "${params_dict["-q"]}" = "" ]; then
       if [ -r "${default_query_file}" ]; then
         curl_commend="${base_comment/path/${params_dict["-i"]}/_search} -H 'Content-Type: application/json' -d @${default_query_file}"
@@ -91,7 +98,13 @@ elasticsearch() {
       rm -rf "${elasticsearch_cache_dir}"
       return 0
     fi
-    curl_commend="${base_comment/path/${params_dict["-i"]}/_search} -H 'Content-Type: application/json' -d @${params_dict["-q"]}"
+
+    query_file="${params_dict["-q"]}"
+    if [ ! -r "${query_file}" ]; then
+      echo "文件：${query_file} 读取失败" 1>&2
+      return -1
+    fi
+    curl_commend="${base_comment/path/${params_dict["-i"]}/_search} -H 'Content-Type: application/json' -d @${query_file}"
     eval "${curl_commend}" | jq >>"${elasticsearch_cache_file}"
     ${editor} "${elasticsearch_cache_file}"
     rm -rf "${elasticsearch_cache_dir}"
@@ -102,7 +115,12 @@ elasticsearch() {
   if [ "$1" = "count" ]; then
     if [ "${params_dict["-i"]}" != "" ]; then
       if [ "${params_dict["-q"]}" != "" ]; then
-        curl_commend="${base_comment/path/${params_dict["-i"]}/_count} -H 'Content-Type: application/json' -d @${params_dict["-q"]}"
+        query_file="${params_dict["-q"]}"
+        if [ ! -r "${query_file}" ]; then
+          echo "文件：${query_file}，读取失败" 1>&2
+          return -1;
+        fi
+        curl_commend="${base_comment/path/${params_dict["-i"]}/_count} -H 'Content-Type: application/json' -d @${query_file}"
         eval "${curl_commend}" | jq >> "${elasticsearch_cache_file}"
         ${editor} "${elasticsearch_cache_file}"
         rm -rf "${elasticsearch_cache_dir}"
