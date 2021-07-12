@@ -3,3 +3,8 @@ Workspace
 workspace
 .idea
 venv
+target
+*.class
+*.jar
+*.tar.gz
+*.zip

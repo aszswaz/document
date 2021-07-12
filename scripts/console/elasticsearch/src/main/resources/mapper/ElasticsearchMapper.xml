@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="aszswaz.elasticsearch.mapper.ElasticsearchMapper">
+    <!--创建表格-->
+    <insert id="createTable">
+        CREATE TABLE elasticsearch_config
+        (
+            id                INTEGER PRIMARY KEY NOT NULL,
+            name              TEXT UNIQUE         NOT NULL,
+            url               TEXT                NOT NULL,
+            username          TEXT,
+            password          TEXT,
+            'default_address' INTEGER,
+            `default_user`    INTEGER,
+            UNIQUE (url, username)
+        )
+    </insert>
+
+    <!--查看表格-->
+    <select id="showTable" resultType="string">
+        SELECT `name`
+        FROM sqlite_master
+    </select>
+
+    <!--es连接信息-->
+    <resultMap id="ConnectionInfo" type="aszswaz.elasticsearch.po.ConnectionInfo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="default_address" property="defaultAddress"/>
+        <result column="default_user" property="defaultUser"/>
+    </resultMap>
+
+    <sql id="baseColumn">id, name, url, username, password, default_address, default_user</sql>
+
+    <!--查询与url对应的默认连接配置信息-->
+    <select id="selectByUrlDefault" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+        WHERE url = #{url}
+        AND default_user = 1
+    </select>
+
+    <!--查询默认的连接信息-->
+    <select id="selectDefault" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+        WHERE default_address = 1 AND default_user = 1
+    </select>
+
+    <!--根据url和用户名查询连接信息-->
+    <select id="selectByUrlUsername" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+        WHERE url = #{url} AND username = #{username}
+    </select>
+
+    <!--取消默认地址-->
+    <update id="cancelAddressDefault">
+        UPDATE elasticsearch_config
+        SET default_address = 0
+        WHERE default_address = 1
+    </update>
+
+    <!--取消指定 url 默认用户-->
+    <update id="cancelUserDefault">
+        UPDATE elasticsearch_config
+        SET default_user = 0
+        WHERE url = #{url}
+          AND default_user = 1
+    </update>
+
+    <!--添加服务器信息-->
+    <insert id="insertServer">
+        INSERT INTO elasticsearch_config (<include refid="baseColumn"/>)
+        VALUES (#{id}, #{name}, #{url}, #{username}, #{password}, #{defaultAddress}, #{defaultUser})
+    </insert>
+
+    <!--查询一条数据，主要用于判断表格是否为空-->
+    <select id="selectMaxId" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+        ORDER BY id DESC
+        LIMIT 1
+    </select>
+
+    <!--更新所有字段-->
+    <!--suppress SqlWithoutWhere -->
+    <sql id="update">
+        UPDATE elasticsearch_config
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="defaultAddress != null">
+                default_address = #{defaultAddress},
+            </if>
+            <if test="defaultUser != null">
+                default_user = #{defaultUser},
+            </if>
+        </set>
+    </sql>
+
+    <!--根据id更新记录-->
+    <update id="updateById">
+        <include refid="update"/>
+        WHERE id = #{id}
+    </update>
+
+    <!--根据name更新记录-->
+    <update id="updateByName">
+        <include refid="update"/>
+        WHERE name = #{name}
+    </update>
+
+    <!--根据id 删除记录-->
+    <delete id="deleteById">
+        DELETE
+        FROM elasticsearch_config
+        WHERE id = #{id}
+    </delete>
+
+    <!--根据name删除记录-->
+    <delete id="deleteByName">
+        DELETE
+        FROM elasticsearch_config
+        WHERE name = #{name}
+    </delete>
+
+    <!--查询所有记录-->
+    <select id="select" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+    </select>
+</mapper>
