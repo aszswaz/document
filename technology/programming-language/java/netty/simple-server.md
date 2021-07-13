@@ -11,6 +11,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
@@ -24,6 +26,18 @@ import java.util.Locale;
 @Slf4j
 @SuppressWarnings({"JavaDoc", "FieldCanBeLocal", "unused"})
 public class ProxyRequestHandler extends ChannelHandlerAdapter {
+    /**
+     * 连接建立
+     */
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) {
+        InetAddress inetSocketAddress = ((InetSocketAddress) ctx.channel().remoteAddress()).getAddress();
+        log.info("与客户端：{} - {}建立连接", inetSocketAddress.getHostName(), inetSocketAddress.getHostAddress());
+    }
+
+    /**
+     * 通道中有数据到达
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
@@ -59,6 +73,7 @@ public class ProxyRequestHandler extends ChannelHandlerAdapter {
         ctx.close();
     }
 }
+
 ```
 
 服务器启动部分
