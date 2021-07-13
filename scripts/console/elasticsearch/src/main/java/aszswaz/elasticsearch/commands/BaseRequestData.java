@@ -1,6 +1,7 @@
 package aszswaz.elasticsearch.commands;
 
 import static aszswaz.elasticsearch.config.SystemConfig.DEFAULT_QUERY_FILE;
+import aszswaz.elasticsearch.connection.Connection;
 import static aszswaz.elasticsearch.container.Container.getParameter;
 import aszswaz.elasticsearch.entity.HttpGetWithEntity;
 import aszswaz.elasticsearch.exception.CommandException;
@@ -23,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * 请求数据的指令
@@ -137,5 +137,16 @@ public abstract class BaseRequestData implements Command {
         }
         HttpResponse response = httpClient.execute(get);
         System.out.println(EntityUtils.toString(response.getEntity()));
+    }
+
+    /**
+     * 输出帮助信息
+     */
+    @Override
+    public void help() {
+        System.err.println("参数");
+        System.err.println("-i  --index      指定查询索引，默认无索引查询");
+        System.err.println("-q  --query      指定查询使用的条件文件");
+        Connection.help();
     }
 }

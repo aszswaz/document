@@ -13,4 +13,9 @@ public interface Command {
      * 执行指令
      */
     void execute(String[] args) throws Exception;
+
+    /**
+     * 输出帮助信息
+     */
+    void help();
 }

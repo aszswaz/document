@@ -26,4 +26,12 @@ public class Indices implements Command {
         HttpResponse response = client.execute(httpGet);
         System.out.println(EntityUtils.toString(response.getEntity()));
     }
+
+    /**
+     * 输出帮助信息
+     */
+    @Override
+    public void help() {
+        Connection.help();
+    }
 }

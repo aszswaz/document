@@ -7,6 +7,7 @@ import aszswaz.elasticsearch.po.ConnectionInfo;
 import aszswaz.elasticsearch.util.Mybatis;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import lombok.extern.log4j.Log4j2;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 
@@ -25,6 +26,7 @@ import java.util.Map;
  * @date 2021/7/12 18:46:12
  * @IDE IntelliJ IDEA
  */
+@Log4j2
 @SuppressWarnings({"JavaDoc", "DuplicatedCode"})
 public class Server implements Command {
     @Override
@@ -39,7 +41,8 @@ public class Server implements Command {
         } else if ("select".equals(commend)) {
             this.select();
         } else {
-            throw new CommandException("未知指令：" + args[0]);
+            log.error("未知指令：{}", commend);
+            this.help();
         }
     }
 
@@ -88,6 +91,7 @@ public class Server implements Command {
         // 解析命令行参数，提取 url 用户名 密码
         ConnectionInfo connectionInfo = Connection.parseParameter(Arrays.copyOfRange(args, 1, args.length));
         for (int i = 0; i < args.length; i++) {
+            if (!args[i].startsWith("-")) continue;
             if ("--default".equals(args[i])) {
                 if (i == args.length - 1) throw new CommandException(args[i] + " 参数格式错误");
                 // 完全默认
@@ -107,6 +111,10 @@ public class Server implements Command {
             } else if ("-i".equals(args[i]) || "--id".equals(args[i])) {
                 if (i == args.length - 1) throw new CommandException(args[i] + " 参数错误");
                 connectionInfo.setId(Long.parseLong(args[++i]));
+            } else {
+                log.error("错误的参数：{}", args[i]);
+                this.help();
+                System.exit(1);
             }
         }
         return connectionInfo;
@@ -149,7 +157,7 @@ public class Server implements Command {
      */
     private void updateOrDeleteError() throws CommandException {
         String message = "id 或者 name 不能都为空," + System.lineSeparator();
-        message += "-d --id 指定记录的id," + System.lineSeparator();
+        message += "-i --id 指定记录的id," + System.lineSeparator();
         message += "-n --name 指定记录的name," + System.lineSeparator();
         throw new CommandException(message);
     }
@@ -240,5 +248,29 @@ public class Server implements Command {
             }
             System.out.printf(format + "%n", values);
         }
+    }
+
+    /**
+     * 打印帮助信息
+     */
+    @Override
+    public void help() {
+        final String enter = System.lineSeparator();
+        final String message = "指令" + enter +
+                "insert     添加服务器" + enter +
+                "update     更新服务器" + enter +
+                "delete     删除服务器" + enter +
+                "select     查看服务器" + enter +
+                "参数" + enter +
+                "-i --id    指定服务器的id，" + enter +
+                "-n --name  指定服务器的名字" + enter +
+                "-u         指定服务器的账户，语法： username:password" + enter +
+                "--default-address 指定服务器为默认使用的服务器，比如：--default-address true" + enter +
+                "--default-user    指定该账户是所属服务器的默认账户，比如：--default-user true" + enter +
+                "--default  表示设置 --default-address 和 --default-user，比如--default true" + enter +
+                "[http|https]://host:port/ 指定服务器的url" + enter +
+                "注意事项" + enter +
+                "使用 update 和 delete 的时候，-i 和 -n 必须指定其中一个作为服务器唯一标识符，才能正确的执行命令";
+        System.err.println(message);
     }
 }

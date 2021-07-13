@@ -52,4 +52,12 @@ public class Version implements Command {
         }
         System.out.println(responseString);
     }
+
+    /**
+     * 输出帮助信息
+     */
+    @Override
+    public void help() {
+        Connection.help();
+    }
 }

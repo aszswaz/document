@@ -137,9 +137,20 @@ public class Connection {
      */
     private static void error() throws CommandException {
         String message = "数据库中缺少服务器的默认连接信息，你可以通过参数指定" + System.lineSeparator();
-        message += "-h 指定连接服务的url，语法：(http|https)://host:port/" + System.lineSeparator();
+        message += "   指定连接服务的url，语法：(http|https)://host:port/" + System.lineSeparator();
         message += "-u 指定连接服务器的账户，语法：username:password" + System.lineSeparator();
         message += "除此之外还可以使用 server remote insert --default 指令添加连接信息" + System.lineSeparator();
         throw new CommandException(message);
+    }
+
+    /**
+     * 输出帮助信息
+     */
+    public static void help() {
+        System.err.println("-u          指定用户名，如果不指定从sqlite中读取默认的配置（server insert指令例外）");
+        System.err.println("[http|https]://host:port/ 服务器的url, 如果不指定，会尝试从sqlite获取默认的服务器配置");
+        System.err.println("--id        指定连接的服务器的id");
+        System.err.println("-n  --name  指定连接的服务器的名称");
+        System.err.println("注意： --id 和 -n 的参数可以通过 server select 获得，--id 和 -n 都不指定就会使用当前设置的默认服务器");
     }
 }
