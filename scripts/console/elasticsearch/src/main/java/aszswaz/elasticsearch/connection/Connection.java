@@ -131,7 +131,7 @@ public class Connection {
         String message = "数据库中缺少服务器的默认连接信息，你可以通过参数指定" + System.lineSeparator();
         message += "-h 指定连接服务的url，语法：(http|https)://host:port/" + System.lineSeparator();
         message += "-u 指定连接服务器的账户，语法：username:password" + System.lineSeparator();
-        message += "除此之外还可以使用 server add 指令添加连接信息" + System.lineSeparator();
+        message += "除此之外还可以使用 server remote insert --default 指令添加连接信息" + System.lineSeparator();
         throw new CommandException(message);
     }
 }

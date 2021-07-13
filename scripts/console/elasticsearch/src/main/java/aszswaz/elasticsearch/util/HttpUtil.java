@@ -1,5 +1,6 @@
 package aszswaz.elasticsearch.util;
 
+import aszswaz.elasticsearch.po.ConnectionInfo;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -9,6 +10,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 
 /**
  * http工具类
@@ -19,6 +21,14 @@ import org.apache.http.impl.client.HttpClients;
  */
 @SuppressWarnings("JavaDoc")
 public class HttpUtil {
+    public static HttpClient getClient(ConnectionInfo connectionInfo) {
+        if (isNoneBlank(connectionInfo.getUsername()) && isNoneBlank(connectionInfo.getPassword())) {
+            return getClient(connectionInfo.getUsername(), connectionInfo.getPassword());
+        } else {
+            return getClient();
+        }
+    }
+
     /**
      * 获取一个需要登录的客户端
      */

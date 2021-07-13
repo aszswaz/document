@@ -21,6 +21,10 @@ public class SystemConfig {
      * es默认端口号
      */
     public static final int DEFAULT_PORT = 9200;
+    /**
+     * 默认使用的查询条件文件（程序的工作目录下）
+     */
+    public static final File DEFAULT_QUERY_FILE = new File("query.json");
 
     static {
         if (!CONFIG_DIR.exists()) {

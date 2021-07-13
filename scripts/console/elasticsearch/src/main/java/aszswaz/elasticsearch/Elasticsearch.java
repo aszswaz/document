@@ -5,8 +5,10 @@ import aszswaz.elasticsearch.container.Container;
 import aszswaz.elasticsearch.exception.CommandException;
 import aszswaz.elasticsearch.exception.HttpException;
 import aszswaz.elasticsearch.util.Mybatis;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.conn.HttpHostConnectException;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -16,6 +18,7 @@ import java.util.Arrays;
  * @date 2021/7/12 13:13:41
  * @IDE IntelliJ IDEA
  */
+@Slf4j
 @SuppressWarnings("JavaDoc")
 public class Elasticsearch {
     public static void main(String[] args) {
@@ -33,15 +36,8 @@ public class Elasticsearch {
 
             CommandsEnum commandsEnum = CommandsEnum.valueOf(args[0]);
             commandsEnum.getCommand().execute(Arrays.copyOfRange(args, 1, args.length));
-        } catch (IllegalArgumentException e) {
-            System.err.println("错误的指令：" + args[0]);
-            help();
-            System.exit(1);
-        } catch (CommandException | HttpException | HttpHostConnectException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             System.exit(1);
         }
 

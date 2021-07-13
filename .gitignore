@@ -8,3 +8,4 @@ target
 *.jar
 *.tar.gz
 *.zip
+scripts/console/elasticsearch/demo.json

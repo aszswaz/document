@@ -2,10 +2,6 @@ package aszswaz.elasticsearch.container;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,4 +23,11 @@ public class Container {
     @Getter
     @Setter
     private static String[] originArgs;
+
+    /**
+     * 获取参数
+     */
+    public static String getParameter(String key) {
+        return PARAMETERS.get(key);
+    }
 }
