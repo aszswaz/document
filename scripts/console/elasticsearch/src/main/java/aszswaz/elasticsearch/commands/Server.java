@@ -71,10 +71,10 @@ public class Server implements Command {
         // 设置默认用户
         connectionInfo.setDefaultUser(true);
         // 用户要求当前连接设置为默认，取消其他连接的默认设置
-        if (connectionInfo.isDefaultAddress()) {
+        if (nonNull(connectionInfo.getDefaultAddress()) && connectionInfo.getDefaultAddress()) {
             mapper.cancelAddressDefault();
         }
-        if (connectionInfo.isDefaultUser()) {
+        if (nonNull(connectionInfo.getDefaultUser()) && connectionInfo.getDefaultUser()) {
             mapper.cancelUserDefault(connectionInfo.getUrl());
         }
         // 添加用户

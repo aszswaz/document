@@ -36,10 +36,11 @@ public class ConnectionInfo implements Serializable {
     private String password;
     /**
      * 默认连接地址
+     * 为了让mybatis能够正确的执行 != null 判断，这里需要使用包装类
      */
-    private boolean defaultAddress;
+    private Boolean defaultAddress;
     /**
      * 默认使用账户
      */
-    private boolean defaultUser;
+    private Boolean defaultUser;
 }
