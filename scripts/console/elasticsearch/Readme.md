@@ -24,3 +24,11 @@ $ sh elasticsearch.sh install
 ```shell
 $ sh elasticsearch.sh uninstall
 ```
+
+## 更新
+
+把jar包和elasticsearch.sh文件复制到 ${HOME}/.local/share/elasticsearch 文件夹下即可
+
+```shell
+$ cp target/elasticsearch-command-client.jar elasticsearch.sh "${HOME}/.local/share/elasticsearch"
+```

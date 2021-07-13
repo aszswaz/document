@@ -54,7 +54,7 @@ if [ "$1" = "uninstall" ]; then
 fi
 
 # 不需要美化的指令
-if [ "$1" = "version" ] || [ "$1" = "server" ]; then
+if [ "$1" = "version" ] || [ "$1" = "server" ] || [ "$1" = "help" ] || [ "$2" = "help" ]; then
   java -jar "${jar}" "$@"
   exit 0
 fi
