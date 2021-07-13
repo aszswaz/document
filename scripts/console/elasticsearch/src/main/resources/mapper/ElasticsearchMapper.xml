@@ -144,6 +144,22 @@
         WHERE name = #{name}
     </delete>
 
+    <!--根据名称查询服务器信息-->
+    <select id="selectByName" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+        WHERE name = #{name}
+    </select>
+
+    <!--根据id查询-->
+    <select id="selectById" resultMap="ConnectionInfo">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM elasticsearch_config
+        WHERE id = #{id}
+    </select>
+
     <!--查询所有记录-->
     <select id="select" resultMap="ConnectionInfo">
         SELECT

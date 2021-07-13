@@ -99,6 +99,20 @@ public interface ElasticsearchMapper {
     );
 
     /**
+     * 根据名称查询服务器信息
+     */
+    ConnectionInfo selectByName(
+            @Param(value = "name") String name
+    );
+
+    /**
+     * 根据名称查询服务器信息
+     */
+    ConnectionInfo selectById(
+            @Param(value = "id") long id
+    );
+
+    /**
      * 查询所有记录
      */
     List<ConnectionInfo> select();

@@ -27,7 +27,7 @@ public class Connection {
     public static ConnectionInfo getConnectionInfo(String[] args) throws CommandException {
         final ConnectionInfo parameter = parseParameter(args);
         // 从数据库查询连接信息
-        ConnectionInfo connectionInfo = findConnectionInfo(parameter.getUrl());
+        ConnectionInfo connectionInfo = findConnectionInfo(parameter);
 
         // 优先使用命令行的账户参数
         if (isBlank(parameter.getUrl())) {
@@ -73,6 +73,12 @@ public class Connection {
                 throw new CommandException("用户名密码格式错误：" + user);
             }
         }
+        String name = Container.getParameter("-n");
+        if (isBlank(name)) name = Container.getParameter("--name");
+        connectionInfo.setName(name);
+        if (isNoneBlank(Container.getParameter("--id"))) {
+            connectionInfo.setId(Long.valueOf(Container.getParameter("--id")));
+        }
         return connectionInfo;
     }
 
@@ -112,16 +118,18 @@ public class Connection {
     /**
      * 从数据库查询连接信息
      */
-    private static ConnectionInfo findConnectionInfo(String url) {
-        ConnectionInfo connectionInfo;
-        if (isBlank(url)) {
-            // 用户没有指定url,从数据库查询默认的连接信息
-            return ELASTICSEARCH_MAPPER.selectDefault();
-        } else {
+    private static ConnectionInfo findConnectionInfo(ConnectionInfo parameter) {
+        if (isNoneBlank(parameter.getUrl())) {
             // 根据url查询默认用户名
-            connectionInfo = ELASTICSEARCH_MAPPER.selectByUrlDefault(url);
+            return ELASTICSEARCH_MAPPER.selectByUrlDefault(parameter.getUrl());
+        } else if (isNoneBlank(parameter.getName())) {
+            return ELASTICSEARCH_MAPPER.selectByName(parameter.getName());
+        } else if (parameter.getId() != null) {
+            return ELASTICSEARCH_MAPPER.selectById(parameter.getId());
+        } else {
+            // 用户没有指定url 和 name,从数据库查询默认的连接信息
+            return ELASTICSEARCH_MAPPER.selectDefault();
         }
-        return connectionInfo;
     }
 
     /**

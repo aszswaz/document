@@ -59,6 +59,11 @@ if [ "$1" = "version" ] || [ "$1" = "server" ]; then
   exit 0
 fi
 
+# 以下的指令需要缓存用的文件夹
+if [ ! -r "${cache}" ]; then
+  mkdir "${cache}"
+fi
+
 if [ "$1" = "indices" ]; then
   cache_file="${cache}/indices.txt"
   if java -jar "${jar}" "$@" >"${cache_file}"; then
