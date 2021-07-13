@@ -59,29 +59,8 @@ if [ "$1" = "version" ] || [ "$1" = "server" ] || [ "$1" = "help" ] || [ "$2" = 
   exit 0
 fi
 
-# 以下的指令需要缓存用的文件夹
-if [ ! -r "${cache}" ]; then
-  mkdir "${cache}"
-fi
-
 if [ "$1" = "indices" ]; then
-  cache_file="${cache}/indices.txt"
-  if java -jar "${jar}" "$@" >"${cache_file}"; then
-    vim "${cache_file}"
-  else
-    # 退出程序并且返回上一个命令的返回值
-    exit "$?"
-  fi
+  java -jar "${jar}" "$@"
 else
-  cache_file="${cache}/elasticsearch.json"
-  if java -jar "${jar}" "$@" | jq >"${cache_file}"; then
-    vim "${cache_file}"
-  else
-    # 退出程序并且返回上一个命令的返回值
-    exit "$?"
-  fi
-fi
-
-if [ -r "${cache}" ]; then
-  rm -rf "${cache}"
+  java -jar "${jar}" "$@" | jq
 fi
