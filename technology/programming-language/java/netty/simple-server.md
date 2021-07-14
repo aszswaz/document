@@ -51,6 +51,10 @@ public class ProxyRequestHandler extends ChannelHandlerAdapter {
             ctx.close();
              */
         });
+        /*
+        或者可以使用 netty 预定义的代码关闭连接
+        channelFuture.addListener(ChannelFutureListener.CLOSE);
+         */
     }
 
     /**
@@ -91,7 +95,6 @@ public class ProxyRequestHandler extends ChannelHandlerAdapter {
         ctx.close();
     }
 }
-
 ```
 
 服务器启动部分

@@ -61,3 +61,7 @@ how to fix it, please visit the web page mentioned above.
 ```
 
 <font color="green">将协议从socks5改为socks5h即可</font>
+
+## 常用参数/指令
+
+--compressed 对gzip 之类经过压缩的响应流进行解压缩

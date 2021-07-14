@@ -21,7 +21,7 @@ log4j2.xml
 <configuration status="warn">
     <properties>
         <!-- 项目名称 -->
-        <property name="PROJECT">data-manage</property>
+        <property name="PROJECT">project-name</property>
         <property name="BASE_PATH">logs/${PROJECT}</property>
         <!--编码-->
         <property name="CHARSET">UTF-8</property>
@@ -95,7 +95,7 @@ log4j2.xml
         </RollingRandomAccessFile>
         <!--输出info日志-->
         <RollingRandomAccessFile name="info-file" append="true" fileName="${BASE_PATH}/info/info.log"
-                                 filePattern="${BASE_PATH}/info/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/${PROJECT}-(%d{yyyy-MM-dd HH})~%i.log.gz"
+                                 filePattern="${BASE_PATH}/info/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/${PROJECT}-(%d{yyyy-MM-dd HH})~%i.log"
                                  immediateFlush="true">
             <PatternLayout charset="${CHARSET}" pattern="${FILE_PATTERN}"/>
             <Policies>
@@ -105,7 +105,7 @@ log4j2.xml
             </Policies>
             <DefaultRolloverStrategy fileIndex="max" min="1" max="100">
                 <Delete basePath="${BASE_PATH}/info/" maxDepth="10">
-                    <IfFileName glob="*.log.gz"/>
+                    <IfFileName glob="*.log"/>
                     <IfLastModified age="180d"/>
                 </Delete>
             </DefaultRolloverStrategy>
@@ -116,7 +116,7 @@ log4j2.xml
         </RollingRandomAccessFile>
         <!--输出warn级别-->
         <RollingRandomAccessFile name="warn-file" append="true" fileName="${BASE_PATH}/warn/warn.log"
-                                 filePattern="${BASE_PATH}/warn/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/${PROJECT}-(%d{yyyy-MM-dd HH})~%i.log.gz"
+                                 filePattern="${BASE_PATH}/warn/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/${PROJECT}-(%d{yyyy-MM-dd HH})~%i.log"
                                  immediateFlush="true">
             <PatternLayout charset="${CHARSET}" pattern="${FILE_PATTERN}"/>
             <Policies>
@@ -126,7 +126,7 @@ log4j2.xml
             </Policies>
             <DefaultRolloverStrategy fileIndex="max" min="1" max="100">
                 <Delete basePath="${BASE_PATH}/warn/" maxDepth="10">
-                    <IfFileName glob="*.log.gz"/>
+                    <IfFileName glob="*.log"/>
                     <IfLastModified age="180d"/>
                 </Delete>
             </DefaultRolloverStrategy>
@@ -137,7 +137,7 @@ log4j2.xml
         </RollingRandomAccessFile>
         <!--输出error以上级别日志-->
         <RollingRandomAccessFile name="error-file" append="true" fileName="${BASE_PATH}/error/error.log"
-                                 filePattern="${BASE_PATH}/error/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/${PROJECT}-(%d{yyyy-MM-dd HH})~%i.log.gz"
+                                 filePattern="${BASE_PATH}/error/$${date:yyyy-MM}/$${date:yyyy-MM-dd}/${PROJECT}-(%d{yyyy-MM-dd HH})~%i.log"
                                  immediateFlush="true">
             <PatternLayout charset="${CHARSET}" pattern="${FILE_PATTERN}"/>
             <Policies>
@@ -147,7 +147,7 @@ log4j2.xml
             </Policies>
             <DefaultRolloverStrategy fileIndex="max" min="1" max="100">
                 <Delete basePath="${BASE_PATH}/error/" maxDepth="10">
-                    <IfFileName glob="*.log.gz"/>
+                    <IfFileName glob="*.log"/>
                     <IfLastModified age="180d"/>
                 </Delete>
             </DefaultRolloverStrategy>
