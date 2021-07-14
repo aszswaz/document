@@ -6,6 +6,8 @@
 package com.zhong.crawler.proxy.proxyrequesthandler;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
@@ -33,6 +35,22 @@ public class ProxyRequestHandler extends ChannelHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         InetAddress inetSocketAddress = ((InetSocketAddress) ctx.channel().remoteAddress()).getAddress();
         log.info("与客户端：{} - {}建立连接", inetSocketAddress.getHostName(), inetSocketAddress.getHostAddress());
+
+        // 创建缓冲区
+        ByteBuf outBuf = ctx.alloc().buffer(1024);
+        // 在缓冲区中写入问候
+        outBuf.writeBytes(("Hello " + inetSocketAddress.getHostAddress() + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
+        // 发送缓冲区中的数据，并刷新缓冲区
+        final ChannelFuture channelFuture = ctx.writeAndFlush(outBuf);
+        // 注册缓冲区写出完成之后的操作
+        channelFuture.addListener((ChannelFutureListener) future -> {
+            if (!channelFuture.equals(future)) return;
+            log.info("客户端问候写出成功");
+            /*
+            关闭通道
+            ctx.close();
+             */
+        });
     }
 
     /**
