@@ -91,7 +91,7 @@ public class Server implements Command {
         // 解析命令行参数，提取 url 用户名 密码
         ConnectionInfo connectionInfo = Connection.parseParameter(Arrays.copyOfRange(args, 1, args.length));
         for (int i = 0; i < args.length; i++) {
-            if (!args[i].startsWith("-")) continue;
+            if (!args[i].startsWith("-") || "-u".equals(args[i])) continue;
             if ("--default".equals(args[i])) {
                 if (i == args.length - 1) throw new CommandException(args[i] + " 参数格式错误");
                 // 完全默认
@@ -105,16 +105,6 @@ public class Server implements Command {
             } else if ("--default-address".equals(args[i])) {
                 if (i == args.length - 1) throw new CommandException(args[i] + " 参数格式错误");
                 connectionInfo.setDefaultAddress(Boolean.parseBoolean(args[++i]));
-            } else if ("-n".equals(args[i]) || "--name".equals(args[i])) {
-                if (i == args.length - 1) throw new CommandException(args[i] + " 参数错误");
-                connectionInfo.setName(args[++i]);
-            } else if ("-i".equals(args[i]) || "--id".equals(args[i])) {
-                if (i == args.length - 1) throw new CommandException(args[i] + " 参数错误");
-                connectionInfo.setId(Long.parseLong(args[++i]));
-            } else {
-                log.error("错误的参数：{}", args[i]);
-                this.help();
-                System.exit(1);
             }
         }
         return connectionInfo;
