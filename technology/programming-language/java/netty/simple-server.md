@@ -66,15 +66,11 @@ public class ProxyRequestHandler extends ChannelHandlerAdapter {
         String clientMessage = "";
         // ByteBuf.readableBytes 当前缓冲区可读字节
         byte[] buff = new byte[in.readableBytes()];
-        while (in.isReadable()) {
+        if (in.isReadable()) {
             // 读取缓冲区中的所有字节
             in.readBytes(buff);
             clientMessage = new String(buff, StandardCharsets.UTF_8);
             System.out.println(clientMessage);
-            /*
-            这种方式可用，但是会导致 while (in.isReadable()) 死循环，可以改为 if (in.isReadable())
-            System.out.println(in.toString(StandardCharsets.UTF_8));
-            */
         }
         // 销毁缓冲区
         ReferenceCountUtil.release(msg);
@@ -175,4 +171,8 @@ public class CrawlerProxyServer {
 ```shell
 $ telnet localhost 8080
 ```
+
+<font color="red">本例代码摘抄自 [netty官网](https://netty.io/wiki/user-guide-for-5.x.html)，为了保持文档的详细，没有对代码做删改操作。这个例子的代码实际上存在一个异步IO的 bug，在总数据的字节数量超过默认的缓冲区大小（1024）的情况下，获取的字节不完全，会导致 html 文件只下载了一部分。具体的解决方法已经在[simple-client.md](simple-client.md)给出</font>
+
+[netty中文文档](http://ifeve.com/netty5-user-guide/)
 
